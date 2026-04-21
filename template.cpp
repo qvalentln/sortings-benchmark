@@ -2,6 +2,7 @@
 #include<cassert>
 #include<vector>
 #include<ranges>
+#include<algorithm> //is_ranged
 
 int main() {
         std::ios::sync_with_stdio(false);
