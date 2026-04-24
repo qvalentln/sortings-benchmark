@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+#include <cassert>
+#include <algorithm> 
+#include <ranges>
+
+#include "intro_sort.h"
+#include "merge_sort.h"
+#include "quick_sort.h"
+
+#include <fstream>
+#include <chrono>
+int main() {
+    std::ifstream file("teste.txt");
+
+    std::ios::sync_with_stdio(false);
+    file.tie(nullptr);
+
+    int n;
+    file >> n;
+    std::vector<int> a(n);
+    for (int& x : a) {
+        file >> x;
+    }
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    void(*custom_sort)(std::vector<int>&,int,int);
+    custom_sort=merge_sort;
+    custom_sort(a,0,a.size()-1);
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+
+    std::cout << "Time: " << elapsed.count() << " seconds\n";
+
+    //for (int& x : a) {
+    //    std::cout << x <<" ";
+    //}
+
+    assert(std::ranges::is_sorted(a));
+    return 0;
+}
