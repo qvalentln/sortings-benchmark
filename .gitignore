@@ -1,2 +1,5 @@
 template
 *.txt
+*.py
+*.in
+*.out

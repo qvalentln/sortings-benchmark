@@ -5,13 +5,16 @@
 #include<algorithm>
 
 //insertion sort
-void custom_sort(std::vector<int>& v){
-        for(size_t i = 1; i < v.size(); ++i){
-                size_t j = i;
-                while(j > 0 && v[j - 1] > v[j]){
-                        std::swap(v[j - 1], v[j]);
-                        j--;
+void custom_sort(std::vector<int>& v, int st, int dr){
+        for(size_t i = st + 1; i < dr; ++i){
+                int tmp = v[i];
+                size_t j = i - 1;
+
+                while(j >= st && v[j] > tmp) {
+                        v[j + 1] = v[j];
+                        j--; 
                 }
+                v[j + 1] = tmp;
         }
 }
 
@@ -28,9 +31,13 @@ int main() {
                 std::cin >> x;
         }
 
-        custom_sort(a);
+        custom_sort(a, 0, n - 1);
 
         assert(std::ranges::is_sorted(a));
+
+        for(int x : a){
+                std::cout<<x<<' ';
+        }
         return 0;
 
 }

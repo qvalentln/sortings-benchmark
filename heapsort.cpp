@@ -5,21 +5,26 @@
 #include<algorithm>
 
 
-void heapify(std::vector<int>& a);
 
-void siftDown(std::vector<int>& a, int root, int end);
+
+void siftDown(std::vector<int>& a, int root, int st, int end);
 
 
 //heap sort
-void custom_sort(std::vector<int>& v){
-        size_t n = v.size();
+void custom_sort(std::vector<int>& v, int st, int dr){
+        size_t n = dr - st + 1;
         
-        heapify(v);
-        int end = n;
-        while(end > 1) {
-                end--;
-                std::swap(v[end], v[0]);
-                siftDown(v, 0, end);
+        for (int i = st + (n / 2) - 1; i >= st; --i) {
+                siftDown(v,i,st,dr);
+        }
+
+        int curr_end = dr;
+        while(curr_end > st) {
+                std::swap(v[st], v[curr_end]);
+
+                curr_end--;
+
+                siftDown(v,st,st,curr_end);
         }
 
 }
@@ -28,33 +33,23 @@ void custom_sort(std::vector<int>& v){
 //leftnode(i) = 2 * i + 1;
 //rightnode(i) = 2 * i + 2;
 
-void heapify(std::vector<int>& a) {
-        size_t n = a.size();
-        //start = parent(i - 1) - 1
-        int start = (n - 2) / 2 + 1;
+void siftDown(std::vector<int>& a, int root, int st, int end) {
+        while(true){
+                int left = st + 2 * (root - st) + 1;
+                int right = st + 2 * (root - st) + 2;
+                int iswap = root;
 
-        while(start > 0) {
-                //last non-heap node
-                siftDown(a, start, n);
-                start--;
+                if(left <= dr && a[left] > a[iswap]){
+                        iswap = left;
+
+                }
+                if(iswap == root) break;
+                swap(a[root], a[iswap]);
+                root=iswap;
         }
+
 }
 
-void siftDown(std::vector<int>& a, int root, int end){
-        while(2 * root + 1 < end) {
-                int child = 2 * root + 1;
-                if(child + 1 < end && a[child] < a[child + 1]) {
-                        child++;
-                }
-                if(a[root] < a[child]) {
-                        std::swap(a[root], a[child]);
-                        root = child;
-                }
-                else {
-                        return;
-                }
-        }
-}
 
 
 //cod template
@@ -62,6 +57,7 @@ int main() {
         std::ios::sync_with_stdio(false);
         std::cin.tie(nullptr);
 
+        
         int n;
         std::cin >> n;
         std::vector<int> a(n);
@@ -69,9 +65,13 @@ int main() {
                 std::cin >> x;
         }
 
-        custom_sort(a);
+        custom_sort(a,0,n-1);
 
         assert(std::ranges::is_sorted(a));
+
+        for(int x : a){
+                std::cout<<x<<" ";
+        }
         return 0;
 
 }
