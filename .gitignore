@@ -1,4 +1,5 @@
 template
+sort
 *.txt
 *.py
 *.in

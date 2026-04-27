@@ -39,12 +39,17 @@ void siftDown(std::vector<int>& a, int root, int st, int end) {
                 int right = st + 2 * (root - st) + 2;
                 int iswap = root;
 
-                if(left <= dr && a[left] > a[iswap]){
+                if(left <= end && a[left] > a[iswap]){
                         iswap = left;
 
                 }
+
+                if(right <= end && a[right] > a[iswap]){
+                        iswap = right;
+
+                }
                 if(iswap == root) break;
-                swap(a[root], a[iswap]);
+                std::swap(a[root], a[iswap]);
                 root=iswap;
         }
 
@@ -55,8 +60,7 @@ void siftDown(std::vector<int>& a, int root, int st, int end) {
 //cod template
 int main() {
         std::ios::sync_with_stdio(false);
-        std::cin.tie(nullptr);
-
+        std::cin.tie(nullptr);  
         
         int n;
         std::cin >> n;
