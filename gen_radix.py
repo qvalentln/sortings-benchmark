@@ -30,7 +30,9 @@ def gen_worst():
 
 def gen_average():
         global nums
-        nums = [random.randint(lowr,uppr) for _ in range(n)]
+        for _ in range(n):
+                x = random.randint(1000,999999)
+                nums.append(x)
         
                 
 def gen_best():

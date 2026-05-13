@@ -6,6 +6,10 @@
 #include<climits> //INT_MAX
 
 
+
+
+
+//Sort a non-negative vector
 void helper(std::vector<int>& v, int exp) {
         int n = v.size();
 
@@ -30,7 +34,9 @@ void helper(std::vector<int>& v, int exp) {
         for(int i = 0; i < n; ++i) v[i] = sorted[i];
 }
 
-void custom_sort(std::vector<int>& v){
+
+
+void start_radix(std::vector<int>& v){
         
         int mx = -INT_MAX;
         
@@ -39,10 +45,31 @@ void custom_sort(std::vector<int>& v){
                 mx = std::max(mx, v[i]);
         }
 
-        for(int exp = 1; mx / exp; exp*=10) {
+        for(long long exp = 1; mx / exp != 0; exp*=10) {
                 helper(v,exp);
         }
         
+}
+
+
+void custom_sort(std::vector<int>& v){
+        int n = v.size();
+        std::vector<int> neg,pos;
+        for(int i = 0; i < n; ++i) {
+                if(v[i] < 0)neg.push_back(-v[i]);
+                else pos.push_back(v[i]);
+        }
+
+        start_radix(pos);
+        start_radix(neg);
+
+        int idx = 0;
+        for(int i = neg.size() - 1; i >= 0; --i) {
+                v[idx++]=-neg[i];
+        }
+        for(int i = 0; i < pos.size(); ++i) {
+                v[idx++] = pos[i];
+        }
 }
 
 //cod template
