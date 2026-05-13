@@ -3,3 +3,6 @@ sort
 *.txt
 *.in
 *.out
+insertionsort
+radixsort
+heapsort
