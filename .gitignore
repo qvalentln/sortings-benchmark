@@ -1,8 +1,8 @@
+insertionsort
+radixsort
+heapsort
 template
 sort
 *.txt
 *.in
 *.out
-insertionsort
-radixsort
-heapsort
